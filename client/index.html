@@ -17,20 +17,10 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <!-- Analytics placeholder - safely handled if variables are missing -->
-    <script>
-      (function() {
-        const endpoint = "%VITE_ANALYTICS_ENDPOINT%";
-        const websiteId = "%VITE_ANALYTICS_WEBSITE_ID%";
-        if (endpoint && websiteId && !endpoint.includes("VITE_ANALYTICS_ENDPOINT") && !websiteId.includes("VITE_ANALYTICS_WEBSITE_ID")) {
-          const script = document.createElement('script');
-          script.defer = true;
-          script.src = endpoint + '/umami';
-          script.setAttribute('data-website-id', websiteId);
-          document.body.appendChild(script);
-        }
-      })();
-    </script>
+    <script
+      defer
+      src="%VITE_ANALYTICS_ENDPOINT%/umami"
+      data-website-id="%VITE_ANALYTICS_WEBSITE_ID%"></script>
   </body>
 
 </html>
