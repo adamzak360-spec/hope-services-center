@@ -16,13 +16,13 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Company Info */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
+            <div className="flex items-center gap-3 mb-4">
               <img
-                src="/manus-storage/hope-services-logo_b038da9d.png"
+                src="/assets/logo.png"
                 alt="Hope Services Centre Logo"
-                className="h-12 w-auto object-contain"
+                className="h-14 w-auto object-contain mix-blend-screen brightness-110"
               />
-              <span className="font-bold text-lg">Hope Services</span>
+              <span className="font-bold text-xl tracking-tight">Hope Services</span>
             </div>
             <p className="text-gray-300 text-sm">
               Professional recruitment and consultancy services in Tamale, Ghana.

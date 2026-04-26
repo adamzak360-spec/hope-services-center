@@ -28,13 +28,15 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <img
-              src="/manus-storage/hope-services-logo_b038da9d.png"
-              alt="Hope Services Centre Logo"
-              className="h-12 w-auto object-contain"
-            />
-            <span className="hidden sm:inline font-bold text-[#0A2540] text-lg">
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="bg-[#0A2540] p-1.5 rounded-lg flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
+              <img
+                src="/assets/logo.png"
+                alt="Hope Services Centre Logo"
+                className="h-10 w-auto object-contain mix-blend-screen brightness-110"
+              />
+            </div>
+            <span className="hidden sm:inline font-bold text-[#0A2540] text-xl tracking-tight">
               Hope Services
             </span>
           </Link>
