@@ -11,7 +11,7 @@ const AdminAuthContext = createContext<AdminAuthContextType | undefined>(
 );
 
 // Default admin password - can be changed in localStorage
-const DEFAULT_ADMIN_PASSWORD = "HopeServices2024";
+const DEFAULT_ADMIN_PASSWORD = "admin123";
 
 export function AdminAuthProvider({
   children,

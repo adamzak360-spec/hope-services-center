@@ -23,10 +23,20 @@ export default function JobListings() {
   }, [jobPostings, searchTerm, selectedContractType, selectedOrganization]);
 
   const loadJobPostings = () => {
-    const postings = JSON.parse(
+    const employerPostings = JSON.parse(
       localStorage.getItem("employerSubmissions") || "[]"
     );
-    setJobPostings(postings);
+    const adminPostings = JSON.parse(
+      localStorage.getItem("adminJobs") || "[]"
+    );
+    
+    // Combine both sources, ensuring admin jobs and newer jobs appear first
+    // Both sources use 'submittedAt' for timestamp
+    const combinedPostings = [...adminPostings, ...employerPostings].sort((a, b) => {
+      return new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime();
+    });
+
+    setJobPostings(combinedPostings);
   };
 
   const filterJobs = () => {

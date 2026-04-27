@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useAdminAuth } from "@/contexts/AdminAuthContext";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Trash2, Eye, Mail, Phone, Send, LogOut } from "lucide-react";
+import { Trash2, Eye, Mail, Phone, Send, LogOut, Plus, Edit2, X, Check } from "lucide-react";
 import { toast } from "sonner";
 
 /**
@@ -18,8 +18,23 @@ export default function AdminDashboard() {
   const [applications, setApplications] = useState<any[]>([]);
   const [contactMessages, setContactMessages] = useState<any[]>([]);
   const [employerSubmissions, setEmployerSubmissions] = useState<any[]>([]);
+  const [adminJobs, setAdminJobs] = useState<any[]>([]);
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const [showEmailModal, setShowEmailModal] = useState(false);
+  const [showJobModal, setShowJobModal] = useState(false);
+  const [editingJob, setEditingJob] = useState<any>(null);
+  const [jobForm, setJobForm] = useState({
+    positionRequired: "",
+    jobDescription: "",
+    organizationName: "",
+    location: "",
+    deadline: "",
+    contactPerson: "",
+    email: "",
+    telephone: "",
+    contractType: "Full-time",
+    remuneration: "",
+  });
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -38,11 +53,13 @@ export default function AdminDashboard() {
     const employers = JSON.parse(
       localStorage.getItem("employerSubmissions") || "[]"
     );
+    const jobs = JSON.parse(localStorage.getItem("adminJobs") || "[]");
 
     setJobSeekerRegs(jobSeekers);
     setApplications(apps);
     setContactMessages(messages);
     setEmployerSubmissions(employers);
+    setAdminJobs(jobs);
   };
 
   const handleLogout = () => {
@@ -68,8 +85,70 @@ export default function AdminDashboard() {
       const updated = employerSubmissions.filter((emp) => emp.id !== id);
       setEmployerSubmissions(updated);
       localStorage.setItem("employerSubmissions", JSON.stringify(updated));
+    } else if (type === "adminJobs") {
+      const updated = adminJobs.filter((job) => job.id !== id);
+      setAdminJobs(updated);
+      localStorage.setItem("adminJobs", JSON.stringify(updated));
     }
     toast.success("Item deleted successfully");
+  };
+
+  const handleJobSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!jobForm.positionRequired || !jobForm.organizationName || !jobForm.jobDescription) {
+      toast.error("Please fill in all required fields");
+      return;
+    }
+
+    let updatedJobs;
+    if (editingJob) {
+      updatedJobs = adminJobs.map((job) =>
+        job.id === editingJob.id ? { ...job, ...jobForm } : job
+      );
+      toast.success("Job updated successfully");
+    } else {
+      const newJob = {
+        ...jobForm,
+        id: Date.now(),
+        submittedAt: new Date().toISOString(),
+      };
+      updatedJobs = [newJob, ...adminJobs];
+      toast.success("Job added successfully");
+    }
+
+    setAdminJobs(updatedJobs);
+    localStorage.setItem("adminJobs", JSON.stringify(updatedJobs));
+    setShowJobModal(false);
+    setEditingJob(null);
+    setJobForm({
+      positionRequired: "",
+      jobDescription: "",
+      organizationName: "",
+      location: "",
+      deadline: "",
+      contactPerson: "",
+      email: "",
+      telephone: "",
+      contractType: "Full-time",
+      remuneration: "",
+    });
+  };
+
+  const openEditJob = (job: any) => {
+    setEditingJob(job);
+    setJobForm({
+      positionRequired: job.positionRequired,
+      jobDescription: job.jobDescription,
+      organizationName: job.organizationName,
+      location: job.location || "",
+      deadline: job.deadline || "",
+      contactPerson: job.contactPerson || "",
+      email: job.email || "",
+      telephone: job.telephone || "",
+      contractType: job.contractType || "Full-time",
+      remuneration: job.remuneration || "",
+    });
+    setShowJobModal(true);
   };
 
   const sendWhatsAppMessage = (phone: string, name: string, type: string) => {
@@ -167,6 +246,16 @@ export default function AdminDashboard() {
               }`}
             >
               Contact Messages ({contactMessages.length})
+            </button>
+            <button
+              onClick={() => setActiveTab("manage-jobs")}
+              className={`px-4 py-3 font-semibold border-b-2 transition-colors ${
+                activeTab === "manage-jobs"
+                  ? "border-[#F59E0B] text-[#F59E0B]"
+                  : "border-transparent text-gray-600 hover:text-[#0A2540]"
+              }`}
+            >
+              Manage Jobs ({adminJobs.length})
             </button>
           </div>
 
@@ -359,6 +448,211 @@ export default function AdminDashboard() {
                   </div>
                 ))
               )}
+            </div>
+          )}
+
+          {/* Manage Jobs */}
+          {activeTab === "manage-jobs" && (
+            <div className="space-y-6">
+              <div className="flex justify-between items-center">
+                <h2 className="text-2xl font-bold text-[#0A2540]">Job Management</h2>
+                <Button
+                  onClick={() => {
+                    setEditingJob(null);
+                    setJobForm({
+                      positionRequired: "",
+                      jobDescription: "",
+                      organizationName: "",
+                      location: "",
+                      deadline: "",
+                      contactPerson: "",
+                      email: "",
+                      telephone: "",
+                      contractType: "Full-time",
+                      remuneration: "",
+                    });
+                    setShowJobModal(true);
+                  }}
+                  className="bg-[#F59E0B] hover:bg-[#D97706] text-black font-semibold flex items-center gap-2"
+                >
+                  <Plus className="w-4 h-4" />
+                  Add New Job
+                </Button>
+              </div>
+
+              {adminJobs.length === 0 ? (
+                <p className="text-gray-600 text-center py-8">No jobs added by admin yet</p>
+              ) : (
+                <div className="grid grid-cols-1 gap-4">
+                  {adminJobs.map((job) => (
+                    <div
+                      key={job.id}
+                      className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-md transition-shadow"
+                    >
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h3 className="text-xl font-bold text-[#0A2540]">{job.positionRequired}</h3>
+                          <p className="text-gray-600">{job.organizationName}</p>
+                          <div className="flex gap-4 mt-2 text-sm text-gray-500">
+                            <span>📍 {job.location || "N/A"}</span>
+                            <span>📅 Deadline: {job.deadline || "N/A"}</span>
+                          </div>
+                        </div>
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => openEditJob(job)}
+                            className="p-2 text-blue-600 hover:bg-gray-100 rounded-lg transition-colors"
+                            title="Edit Job"
+                          >
+                            <Edit2 className="w-5 h-5" />
+                          </button>
+                          <button
+                            onClick={() => deleteItem("adminJobs", job.id)}
+                            className="p-2 text-red-600 hover:bg-gray-100 rounded-lg transition-colors"
+                            title="Delete Job"
+                          >
+                            <Trash2 className="w-5 h-5" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Job Modal */}
+          {showJobModal && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+              <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+                <div className="p-6 border-b border-gray-200 flex justify-between items-center sticky top-0 bg-white">
+                  <h3 className="text-xl font-bold text-[#0A2540]">
+                    {editingJob ? "Edit Job Listing" : "Add New Job Listing"}
+                  </h3>
+                  <button onClick={() => setShowJobModal(false)} className="text-gray-500 hover:text-gray-700">
+                    <X className="w-6 h-6" />
+                  </button>
+                </div>
+                <form onSubmit={handleJobSubmit} className="p-6 space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-gray-700">Job Title *</label>
+                      <input
+                        type="text"
+                        required
+                        value={jobForm.positionRequired}
+                        onChange={(e) => setJobForm({ ...jobForm, positionRequired: e.target.value })}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F59E0B] outline-none"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-gray-700">Organization *</label>
+                      <input
+                        type="text"
+                        required
+                        value={jobForm.organizationName}
+                        onChange={(e) => setJobForm({ ...jobForm, organizationName: e.target.value })}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F59E0B] outline-none"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-gray-700">Location</label>
+                      <input
+                        type="text"
+                        value={jobForm.location}
+                        onChange={(e) => setJobForm({ ...jobForm, location: e.target.value })}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F59E0B] outline-none"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-gray-700">Deadline</label>
+                      <input
+                        type="text"
+                        placeholder="e.g. May 30, 2024"
+                        value={jobForm.deadline}
+                        onChange={(e) => setJobForm({ ...jobForm, deadline: e.target.value })}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F59E0B] outline-none"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-gray-700">Contact Person</label>
+                      <input
+                        type="text"
+                        value={jobForm.contactPerson}
+                        onChange={(e) => setJobForm({ ...jobForm, contactPerson: e.target.value })}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F59E0B] outline-none"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-gray-700">Contact Email</label>
+                      <input
+                        type="email"
+                        value={jobForm.email}
+                        onChange={(e) => setJobForm({ ...jobForm, email: e.target.value })}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F59E0B] outline-none"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-gray-700">Contact Phone</label>
+                      <input
+                        type="tel"
+                        value={jobForm.telephone}
+                        onChange={(e) => setJobForm({ ...jobForm, telephone: e.target.value })}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F59E0B] outline-none"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-gray-700">Contract Type</label>
+                      <select
+                        value={jobForm.contractType}
+                        onChange={(e) => setJobForm({ ...jobForm, contractType: e.target.value })}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F59E0B] outline-none"
+                      >
+                        <option value="Full-time">Full-time</option>
+                        <option value="Part-time">Part-time</option>
+                        <option value="Contract">Contract</option>
+                        <option value="Internship">Internship</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-700">Remuneration / Salary</label>
+                    <input
+                      type="text"
+                      value={jobForm.remuneration}
+                      onChange={(e) => setJobForm({ ...jobForm, remuneration: e.target.value })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F59E0B] outline-none"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-700">Job Description *</label>
+                    <textarea
+                      required
+                      rows={5}
+                      value={jobForm.jobDescription}
+                      onChange={(e) => setJobForm({ ...jobForm, jobDescription: e.target.value })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#F59E0B] outline-none"
+                    ></textarea>
+                  </div>
+                  <div className="pt-4 flex gap-3 sticky bottom-0 bg-white">
+                    <Button
+                      type="submit"
+                      className="flex-1 bg-[#F59E0B] hover:bg-[#D97706] text-black font-semibold"
+                    >
+                      {editingJob ? "Update Job" : "Post Job"}
+                    </Button>
+                    <Button
+                      type="button"
+                      onClick={() => setShowJobModal(false)}
+                      variant="outline"
+                      className="flex-1"
+                    >
+                      Cancel
+                    </Button>
+                  </div>
+                </form>
+              </div>
             </div>
           )}
 
