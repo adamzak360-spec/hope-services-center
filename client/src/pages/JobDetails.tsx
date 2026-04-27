@@ -24,6 +24,87 @@ export default function JobDetails() {
   const jobId = params?.id;
 
   const jobsData: Record<string, any> = {
+    "driver": {
+      title: "Drivers",
+      company: "Hope Services Recruitment Limited",
+      location: "Tamale",
+      salary: "Very Attractive",
+      type: "Full-time",
+      posted: "Just now",
+      description: "Reliable Drivers needed to operate buses for a logistic business. Responsible for safe transportation of staff/clients.",
+      fullDescription: `Our client in a logistic business seeks reliable Drivers to operate buses. Responsible for safe transportation of staff/clients.
+
+Duties:
+- Drive vehicles safely and maintain vehicle cleanliness
+- Manage schedules and routes
+- Report issues promptly
+
+Requirements:
+- Valid Ghanaian driver's license (category D)
+- Should be able to read and write reports
+- 2+ years' experience driving buses/minibuses
+- Familiar with Ghanaian roads
+- Basic mechanic skills a plus
+
+What we offer:
+- Competitive salary
+- Benefits package
+
+How to Apply:
+Send your CV to WhatsApp 0243105412 or 0539090594
+Or Email to: dellor206@gmail.com, hope.services@ymail.com
+Only shortlisted candidates will be contacted.`,
+    },
+    "domestic-worker": {
+      title: "Domestic Workers",
+      company: "Hope Services Recruitment Limited",
+      location: "Tamale",
+      salary: "Competitive",
+      type: "Full-time",
+      posted: "Just now",
+      description: "Domestic workers needed to manage day-to-day activities in the home.",
+      fullDescription: `Our clients are in need of domestic workers to manage the day-to-day activities in the home.
+
+Requirements:
+- Should be able to read and write
+- Caring
+- Smart and good looking
+- SHS graduate
+- Age 18-23
+
+Duties:
+- Cleaning and cooking
+- Laundry and childcare
+- Shopping, and any other household work
+
+How to Apply:
+Send your CV to WhatsApp 0243105412 or 0539090594
+Or Email to: dellor206@gmail.com, hope.services@ymail.com
+Only shortlisted candidates will be contacted.`,
+    },
+    "teachers": {
+      title: "Teachers (Pre-school & Basic School)",
+      company: "Hope Services Recruitment Limited",
+      location: "Kalpohini Yapalsi - Tamale",
+      salary: "Competitive",
+      type: "Full-time",
+      posted: "Just now",
+      description: "Openings for Pre-school and Basic School Teachers in Tamale.",
+      fullDescription: `We are hiring Teachers for the following positions:
+- Pre-school Teachers
+- Basic School Teachers
+
+Requirement:
+- Diploma in Basic Education
+- Secondary School Graduate
+
+Location: Kalpohini Yapalsi - Tamale
+
+How to Apply:
+Send your CV to WhatsApp 0243105412 or 0539090594
+Or Email to: dellor206@gmail.com, hope.services@ymail.com
+Only shortlisted candidates will be contacted.`,
+    },
     "1": {
       title: "Marketing Manager",
       company: "Tech Solutions Ghana",
@@ -103,87 +184,6 @@ Requirements:
 - Strong communication and interpersonal skills
 - Experience with HR systems and tools
 - Problem-solving abilities`,
-    },
-    "4": {
-      title: "Sales Executive",
-      company: "Business Ventures Ltd",
-      location: "Accra",
-      salary: "GHS 1,800 - 2,800",
-      type: "Full-time",
-      posted: "3 days ago",
-      description:
-        "Dynamic Sales Executive needed to drive sales growth and client relationships.",
-      fullDescription: `Business Ventures Ltd is looking for a motivated Sales Executive to expand our client base.
-
-Key Responsibilities:
-- Identify and pursue new business opportunities
-- Build and maintain client relationships
-- Prepare sales proposals and presentations
-- Meet sales targets and quotas
-- Provide excellent customer service
-- Report on sales activities and forecasts
-
-Requirements:
-- Bachelor's degree in Business or related field
-- 2+ years of sales experience
-- Strong communication and negotiation skills
-- Ability to work independently and in teams
-- Customer-focused mindset
-- Proficiency in CRM tools`,
-    },
-    "5": {
-      title: "Financial Analyst",
-      company: "Finance Group Ghana",
-      location: "Accra",
-      salary: "GHS 2,800 - 4,000",
-      type: "Full-time",
-      posted: "1 week ago",
-      description:
-        "Analyze financial data and provide insights to support business decisions.",
-      fullDescription: `Finance Group Ghana seeks a Financial Analyst to support our finance team.
-
-Key Responsibilities:
-- Analyze financial statements and data
-- Prepare financial reports and forecasts
-- Identify financial trends and opportunities
-- Support budgeting and planning processes
-- Conduct financial modeling and analysis
-- Present findings to management
-
-Requirements:
-- Bachelor's degree in Finance, Accounting, or related field
-- 2+ years of financial analysis experience
-- Proficiency in Excel and financial software
-- Strong analytical and mathematical skills
-- Knowledge of accounting principles
-- Attention to detail`,
-    },
-    "6": {
-      title: "Customer Service Officer",
-      company: "Service Excellence Ltd",
-      location: "Multiple",
-      salary: "GHS 1,500 - 2,200",
-      type: "Full-time",
-      posted: "4 days ago",
-      description:
-        "Provide excellent customer support and handle client inquiries professionally.",
-      fullDescription: `Service Excellence Ltd is hiring Customer Service Officers for multiple locations.
-
-Key Responsibilities:
-- Handle customer inquiries via phone, email, and chat
-- Resolve customer issues and complaints
-- Provide product information and support
-- Maintain customer records and documentation
-- Follow up on customer satisfaction
-- Meet service quality standards
-
-Requirements:
-- High school diploma or equivalent
-- 1+ years of customer service experience
-- Excellent communication skills
-- Patient and empathetic approach
-- Ability to multitask
-- Proficiency in customer service software`,
     },
   };
 
@@ -286,7 +286,7 @@ Requirements:
                 <h2 className="text-2xl font-bold text-[#0A2540] mb-4">
                   About this Job
                 </h2>
-                <div className="text-gray-700 whitespace-pre-line">
+                <div className="text-gray-700 whitespace-pre-line leading-relaxed">
                   {job.fullDescription}
                 </div>
               </div>
@@ -300,7 +300,7 @@ Requirements:
                 </h3>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
                       Full Name *
                     </label>
                     <input
@@ -308,78 +308,66 @@ Requirements:
                       name="fullName"
                       value={formData.fullName}
                       onChange={handleInputChange}
-                      placeholder="Your full name"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent outline-none"
                       required
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent outline-none"
                     />
                   </div>
-
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Email *
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Email Address *
                     </label>
                     <input
                       type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      placeholder="your@email.com"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent outline-none"
                       required
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent outline-none"
                     />
                   </div>
-
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Phone *
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Phone Number *
                     </label>
                     <input
                       type="tel"
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      placeholder="+233 XXX XXX XXX"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent outline-none"
                       required
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent outline-none"
                     />
                   </div>
-
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Upload CV
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Upload CV (Optional)
                     </label>
                     <input
                       type="file"
                       name="cvFile"
                       onChange={handleInputChange}
-                      accept=".pdf,.doc,.docx"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent outline-none"
+                      className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#F59E0B]/10 file:text-[#0A2540] hover:file:bg-[#F59E0B]/20"
                     />
-                    <p className="text-xs text-gray-500 mt-1">
-                      PDF, DOC, or DOCX (optional)
-                    </p>
                   </div>
-
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-[#F59E0B] hover:bg-[#D97706] text-black font-semibold py-3 mt-6"
+                    className="w-full bg-[#F59E0B] hover:bg-[#D97706] text-black font-bold py-3 mt-4"
                   >
                     {isSubmitting ? "Submitting..." : "Submit Application"}
                   </Button>
                 </form>
-
-                <div className="mt-6 pt-6 border-t border-gray-200">
-                  <p className="text-sm text-gray-600 mb-3">
-                    Questions? Contact us:
+                <div className="mt-6 pt-6 border-t border-gray-100">
+                  <p className="text-sm text-gray-600 mb-4">
+                    Or apply directly via WhatsApp:
                   </p>
                   <a
                     href="https://wa.me/233243105412"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block w-full text-center bg-[#25D366] hover:bg-[#1a9e4a] text-white font-semibold py-2 rounded-lg transition-colors"
+                    className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#128C7E] text-white font-bold py-3 rounded-lg transition-colors"
                   >
-                    Chat on WhatsApp
+                    Apply on WhatsApp
                   </a>
                 </div>
               </div>

@@ -20,6 +20,39 @@ interface Job {
 
 const jobsData: Job[] = [
   {
+    id: "driver",
+    title: "Drivers",
+    company: "Hope Services Recruitment Limited",
+    location: "Tamale",
+    salary: "Very Attractive",
+    type: "Full-time",
+    posted: "Just now",
+    description:
+      "Reliable Drivers needed to operate buses for a logistic business. Responsible for safe transportation of staff/clients.",
+  },
+  {
+    id: "domestic-worker",
+    title: "Domestic Workers",
+    company: "Hope Services Recruitment Limited",
+    location: "Tamale",
+    salary: "Competitive",
+    type: "Full-time",
+    posted: "Just now",
+    description:
+      "Domestic workers needed to manage day-to-day activities in the home including cleaning, cooking, and childcare.",
+  },
+  {
+    id: "teachers",
+    title: "Teachers (Pre-school & Basic School)",
+    company: "Hope Services Recruitment Limited",
+    location: "Kalpohini Yapalsi - Tamale",
+    salary: "Competitive",
+    type: "Full-time",
+    posted: "Just now",
+    description:
+      "Openings for Pre-school and Basic School Teachers in Tamale. Requires Diploma in Basic Education or SHS graduate.",
+  },
+  {
     id: "1",
     title: "Marketing Manager",
     company: "Tech Solutions Ghana",
@@ -52,39 +85,6 @@ const jobsData: Job[] = [
     description:
       "We need an HR Specialist to manage recruitment and employee relations.",
   },
-  {
-    id: "4",
-    title: "Sales Executive",
-    company: "Business Ventures Ltd",
-    location: "Accra",
-    salary: "GHS 1,800 - 2,800",
-    type: "Full-time",
-    posted: "3 days ago",
-    description:
-      "Dynamic Sales Executive needed to drive sales growth and client relationships.",
-  },
-  {
-    id: "5",
-    title: "Financial Analyst",
-    company: "Finance Group Ghana",
-    location: "Accra",
-    salary: "GHS 2,800 - 4,000",
-    type: "Full-time",
-    posted: "1 week ago",
-    description:
-      "Analyze financial data and provide insights to support business decisions.",
-  },
-  {
-    id: "6",
-    title: "Customer Service Officer",
-    company: "Service Excellence Ltd",
-    location: "Multiple",
-    salary: "GHS 1,500 - 2,200",
-    type: "Full-time",
-    posted: "4 days ago",
-    description:
-      "Provide excellent customer support and handle client inquiries professionally.",
-  },
 ];
 
 export default function Jobs() {
@@ -100,7 +100,7 @@ export default function Jobs() {
       job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       job.company.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesLocation =
-      selectedLocation === "All" || job.location === selectedLocation;
+      selectedLocation === "All" || job.location.includes(selectedLocation);
     const matchesType = selectedType === "All" || job.type === selectedType;
 
     return matchesSearch && matchesLocation && matchesType;
