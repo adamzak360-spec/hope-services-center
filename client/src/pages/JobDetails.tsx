@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRoute } from "wouter";
 import { Button } from "@/components/ui/button";
-import { MapPin, Briefcase, DollarSign, Clock, ArrowLeft } from "lucide-react";
+import { MapPin, Briefcase, Clock, ArrowLeft } from "lucide-react";
 import { Link } from "wouter";
 import { toast } from "sonner";
 
@@ -109,7 +109,7 @@ Only shortlisted candidates will be contacted.`,
       title: "Marketing Manager",
       company: "Tech Solutions Ghana",
       location: "Accra",
-      salary: "GHS 3,000 - 4,500",
+      salary: "GHC 3,000 - 4,500",
       type: "Full-time",
       posted: "2 days ago",
       description:
@@ -135,7 +135,7 @@ Requirements:
       title: "Software Developer",
       company: "Digital Innovations Ltd",
       location: "Kumasi",
-      salary: "GHS 2,500 - 3,800",
+      salary: "GHC 2,500 - 3,800",
       type: "Full-time",
       posted: "5 days ago",
       description:
@@ -162,7 +162,7 @@ Requirements:
       title: "HR Specialist",
       company: "Corporate Services Inc",
       location: "Tamale",
-      salary: "GHS 2,000 - 3,000",
+      salary: "GHC 2,000 - 3,000",
       type: "Full-time",
       posted: "1 week ago",
       description:
@@ -267,7 +267,7 @@ Requirements:
                 </div>
                 <div className="bg-gray-50 rounded-lg p-4">
                   <div className="flex items-center gap-2 text-[#F59E0B] mb-2">
-                    <DollarSign className="w-4 h-4" />
+                    <span className="text-sm font-bold">GHC</span>
                     <span className="text-sm font-medium">Salary</span>
                   </div>
                   <p className="font-semibold text-gray-900">{job.salary}</p>

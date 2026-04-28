@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { MapPin, Briefcase, DollarSign, Clock } from "lucide-react";
+import { MapPin, Briefcase, Clock } from "lucide-react";
 
 /**
  * Jobs Page
@@ -57,7 +57,7 @@ const jobsData: Job[] = [
     title: "Marketing Manager",
     company: "Tech Solutions Ghana",
     location: "Accra",
-    salary: "GHS 3,000 - 4,500",
+    salary: "GHC 3,000 - 4,500",
     type: "Full-time",
     posted: "2 days ago",
     description:
@@ -68,7 +68,7 @@ const jobsData: Job[] = [
     title: "Software Developer",
     company: "Digital Innovations Ltd",
     location: "Kumasi",
-    salary: "GHS 2,500 - 3,800",
+    salary: "GHC 2,500 - 3,800",
     type: "Full-time",
     posted: "5 days ago",
     description:
@@ -79,7 +79,7 @@ const jobsData: Job[] = [
     title: "HR Specialist",
     company: "Corporate Services Inc",
     location: "Tamale",
-    salary: "GHS 2,000 - 3,000",
+    salary: "GHC 2,000 - 3,000",
     type: "Full-time",
     posted: "1 week ago",
     description:
@@ -220,7 +220,7 @@ export default function Jobs() {
                           {job.type}
                         </div>
                         <div className="flex items-center gap-2 text-gray-600">
-                          <DollarSign className="w-4 h-4 text-[#F59E0B]" />
+                          <span className="text-[#F59E0B] font-bold">GHC</span>
                           {job.salary}
                         </div>
                         <div className="flex items-center gap-2 text-gray-600">

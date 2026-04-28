@@ -399,7 +399,7 @@ export default function Employers() {
                       name="remuneration"
                       value={formData.remuneration}
                       onChange={handleInputChange}
-                      placeholder="e.g., GHS 3,000 - 4,500 plus benefits"
+                      placeholder="e.g., GHC 3,000 - 4,500 plus benefits"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent outline-none"
                     />
                   </div>

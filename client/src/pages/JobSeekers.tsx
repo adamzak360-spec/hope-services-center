@@ -504,7 +504,7 @@ export default function JobSeekers() {
                       name="salaryRange"
                       value={formData.salaryRange}
                       onChange={handleInputChange}
-                      placeholder="e.g., GHS 2,000 - 3,500"
+                      placeholder="e.g., GHC 2,000 - 3,500"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F59E0B] focus:border-transparent outline-none"
                     />
                   </div>
