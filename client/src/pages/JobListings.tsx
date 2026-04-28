@@ -294,33 +294,61 @@ export default function JobListings() {
                   </div>
 
                   {/* Full Description (Expandable) */}
-                  <details className="mt-6 pt-6 border-t border-gray-200">
-                    <summary className="cursor-pointer font-semibold text-[#0A2540] hover:text-[#F59E0B]">
-                      View Full Details
+                  <details className="mt-6 pt-6 border-t border-gray-200 group">
+                    <summary className="cursor-pointer font-bold text-[#0A2540] hover:text-[#F59E0B] flex items-center gap-2 list-none">
+                      <span className="group-open:rotate-180 transition-transform">▼</span>
+                      View Full Job Details
                     </summary>
-                    <div className="mt-4 space-y-3 text-sm text-gray-700">
+                    <div className="mt-4 space-y-6 text-sm text-gray-700 bg-gray-50 p-4 md:p-6 rounded-lg border border-gray-100">
+                      <div>
+                        <p className="font-bold text-[#0A2540] text-base mb-2 border-b border-gray-200 pb-1">
+                          Job Description
+                        </p>
+                        <p className="whitespace-pre-wrap leading-relaxed">{job.jobDescription}</p>
+                      </div>
+                      
                       {job.preferredQualifications && (
                         <div>
-                          <p className="font-semibold text-[#0A2540]">
+                          <p className="font-bold text-[#0A2540] text-base mb-2 border-b border-gray-200 pb-1">
                             Qualifications
                           </p>
-                          <p>{job.preferredQualifications}</p>
+                          <p className="whitespace-pre-wrap leading-relaxed">{job.preferredQualifications}</p>
                         </div>
                       )}
+                      
                       {job.skillsExperience && (
                         <div>
-                          <p className="font-semibold text-[#0A2540]">
+                          <p className="font-bold text-[#0A2540] text-base mb-2 border-b border-gray-200 pb-1">
                             Skills & Experience
                           </p>
-                          <p>{job.skillsExperience}</p>
+                          <p className="whitespace-pre-wrap leading-relaxed">{job.skillsExperience}</p>
                         </div>
                       )}
+                      
                       {job.conditionsOfService && (
                         <div>
-                          <p className="font-semibold text-[#0A2540]">
+                          <p className="font-bold text-[#0A2540] text-base mb-2 border-b border-gray-200 pb-1">
                             Conditions of Service
                           </p>
-                          <p>{job.conditionsOfService}</p>
+                          <p className="whitespace-pre-wrap leading-relaxed">{job.conditionsOfService}</p>
+                        </div>
+                      )}
+
+                      {job.location && (
+                        <div>
+                          <p className="font-bold text-[#0A2540] text-base mb-2 border-b border-gray-200 pb-1">
+                            Location
+                          </p>
+                          <p>{job.location}</p>
+                        </div>
+                      )}
+
+                      {job.deadline && (
+                        <div>
+                          <p className="font-bold text-[#0A2540] text-base mb-2 border-b border-gray-200 pb-1">
+                            Application Deadline
+                          </p>
+                          <p className="text-red-600 font-semibold">{job.deadline}</p>
                         </div>
                       )}
                     </div>
